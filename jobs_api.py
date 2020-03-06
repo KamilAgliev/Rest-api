@@ -78,3 +78,46 @@ def delete_job(job_id):
     session.delete(job)
     session.commit()
     return jsonify({'success': 'OK (deleted)'})
+
+
+@blueprint.route('/api/jobs/change/<int:job_id>', methods=['POST'])
+def change_job(job_id):
+    if not request.json:
+        return jsonify({'error': 'Empty request'})
+    session = db_session.create_session()
+    job = session.query(Jobs).filter(Jobs.id == job_id).first()
+    if not job:
+        return jsonify({'error': 'not Found (no such job)'})
+
+    was = False
+    for key in request.json:
+        if key == 'team_leader':
+            job.team_leader = request.json['team_leader']
+            was = True
+        if key == 'job':
+            job.job = request.json['job']
+            was = True
+        if key == 'work_size':
+            job.work_size = request.json['work_size']
+            was = True
+        if key == 'collaborators':
+            job.collaborators = request.json['collaborators']
+            was = True
+        if key == 'start_date':
+            job.start_date = request.json['start_date']
+            was = True
+        if key == 'end_date':
+            job.end_date = request.json['end_date']
+            was = True
+        if key == 'is_finished':
+            job.is_finished = request.json['is_finished']
+            was = True
+        if key == 'creator':
+            job.creator = request.json['creator']
+            was = True
+    if not was:
+        return jsonify({'error': 'bad request'})
+    session.delete(job)
+    session.add(job)
+    session.commit()
+    return jsonify({'success': 'OK (job has changed)'})
