@@ -11,6 +11,7 @@ from wtforms import PasswordField, BooleanField, SubmitField, StringField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 import jobs_api
+import users_api
 from data import db_session
 from data.jobs import Jobs
 from data.users import User
@@ -209,4 +210,5 @@ def not_found(error):
 if __name__ == "__main__":
     db_session.global_init('db/baza.sqlite')
     app.register_blueprint(jobs_api.blueprint)
+    app.register_blueprint(users_api.blueprint)
     app.run()
