@@ -167,7 +167,7 @@ def edit_news(id):
         session = db_session.create_session()
         job = session.query(Jobs).filter(Jobs.id == id,
                                          ((Jobs.creator == current_user.id) | (
-                                                     current_user.id == 1))).first()
+                                                 current_user.id == 1))).first()
         if job:
             session.delete(job)
             job = Jobs()
@@ -192,7 +192,7 @@ def job_delete(id):
     s = db_session.create_session()
     job = s.query(Jobs).filter(Jobs.id == id,
                                ((Jobs.creator == current_user.id) | (
-                                           current_user.id == 1))).first()
+                                       current_user.id == 1))).first()
     if job:
         s.delete(job)
         s.commit()
