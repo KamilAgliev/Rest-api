@@ -74,7 +74,7 @@ def delete_job(job_id):
     session = db_session.create_session()
     job = session.query(Jobs).filter(Jobs.id == job_id).first()
     if not job:
-        return jsonify({'error': 'Not found'})
+        return jsonify({'error': 'Not found (no such job)'})
     session.delete(job)
     session.commit()
     return jsonify({'success': 'OK (deleted)'})
