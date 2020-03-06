@@ -35,10 +35,7 @@ print(post('http://localhost:5000/api/jobs',
                  'creator': 1,
                  },
            ).json())
-# class work last(requests)
-# 1 wrong: string value was given instead if int
-print(get('http://localhost:5000/api/jobs/sffd').json())
-# 2 wrong: where is no job with id == 123 in jobs table
-print(get('http://localhost:5000/api/jobs/123').json())
-# 3 correct: table has job with id == 1
-print(get('http://localhost:5000/api/jobs/1').json())
+# empty request
+print(post('http://localhost:5000/api/jobs',
+           json={},
+           ).json())
